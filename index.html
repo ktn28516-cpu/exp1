@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小兔优选 | 新鲜、惠民、快捷</title>
+  <style>
+    /* 全局重置与基础样式 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+
+    /* 顶部通知栏 */
+    .top-notice {
+      background: #ff6b35;
+      color: white;
+      text-align: center;
+      padding: 6px 0;
+      font-size: 14px;
+    }
+
+    /* 头部导航区 */
+    header {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-box img {
+      height: 45px;
+    }
+    .logo-text {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ff6b35;
+    }
+    .main-nav ul {
+      display: flex;
+      gap: 25px;
+    }
+    .main-nav a {
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .main-nav a:hover {
+      color: #ff6b35;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 6px 12px;
+    }
+    .search-bar input {
+      border: none;
+      outline: none;
+      padding: 4px;
+    }
+    .search-btn {
+      background: #ff6b35;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 5px 15px;
+      cursor: pointer;
+    }
+
+    /* 轮播Banner */
+    .banner-section {
+      margin: 20px 5%;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .banner-section img {
+      width: 100%;
+      display: block;
+    }
+
+    /* 快捷分类区 */
+    .quick-category {
+      background: white;
+      margin: 20px 5%;
+      padding: 20px;
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      text-align: center;
+    }
+    .category-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .category-item p {
+      font-size: 14px;
+    }
+
+    /* 通用板块样式 */
+    .section-title {
+      margin: 30px 5% 15px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #222;
+      border-left: 4px solid #ff6b35;
+      padding-left: 10px;
+    }
+    .goods-grid {
+      margin: 0 5% 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 18px;
+    }
+    .goods-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .goods-card:hover {
+      transform: translateY(-3px);
+    }
+    .goods-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .goods-info {
+      padding: 12px;
+    }
+    .goods-name {
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    .goods-price {
+      color: #ff6b35;
+      font-weight: bold;
+    }
+
+    /* 主题活动区 */
+    .topic-area {
+      margin: 0 5% 30px;
+      display: flex;
+      gap: 15px;
+    }
+    .topic-card {
+      flex: 1;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .topic-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    /* 二维码与服务区 */
+    .service-area {
+      background: white;
+      margin: 30px 5%;
+      padding: 25px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      text-align: center;
+    }
+    .qr-item img {
+      width: 100px;
+      height: 100px;
+    }
+    .qr-item p {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    /* 页脚 */
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+    footer p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 顶部通知栏 -->
+  <div class="top-notice">
+    限时活动：全场满99元包邮 | 学号：24215220214 姓名：周凯健 实验作品
+  </div>
+
+  <!-- 头部导航 -->
+  <header>
+    <div class="logo-box">
+      <img src="images/LOGO.PNG" alt="嘉临小兔鲜儿">
+      <div class="logo-text">小兔优选</div>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#fresh">生鲜果蔬</a></li>
+        <li><a href="#clothes">服饰鞋包</a></li>
+        <li><a href="#home">居家好物</a></li>
+        <li><a href="#kitchen">餐厨用品</a></li>
+        <li><a href="#food">美食专区</a></li>
+      </ul>
+    </nav>
+    <div class="search-bar">
+      <input type="text" placeholder="搜索好物">
+      <button class="search-btn">搜索</button>
+    </div>
+  </header>
+
+  <!-- Banner轮播 -->
+  <div class="banner-section">
+    <img src="images/banner1.png" alt="魅力早春新品上市">
+  </div>
+
+  <!-- 快捷分类入口 -->
+  <div class="quick-category">
+    <div class="category-item">
+      <img src="images/fresh_goods_1.jpg" alt="三文鱼">
+      <p>海鲜水产</p>
+    </div>
+    <div class="category-item">
+      <img src="images/clothes1.png" alt="鞋子">
+      <p>潮流服饰</p>
+    </div>
+    <div class="category-item">
+      <img src="images/home1.png" alt="床品">
+      <p>居家生活</p>
+    </div>
+    <div class="category-item">
+      <img src="images/kitchen1.png" alt="锅具">
+      <p>餐厨厨具</p>
+    </div>
+    <div class="category-item">
+      <img src="images/fresh1.png" alt="手抓饼">
+      <p>零食小吃</p>
+    </div>
+    <div class="category-item">
+      <img src="images/new_goods_1.jpg" alt="吸尘器">
+      <p>电器数码</p>
+    </div>
+  </div>
+
+  <!-- 生鲜果蔬区 -->
+  <div class="section-title" id="fresh">新鲜果蔬专区</div>
+  <div class="goods-grid">
+    <div class="goods-card">
+      <img src="images/fresh_goods_1.jpg" alt="三文鱼">
+      <div class="goods-info">
+        <p class="goods-name">进口冰鲜三文鱼</p>
+        <p class="goods-price">¥79</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_goods_2.jpg" alt="草莓">
+      <div class="goods-info">
+        <p class="goods-name">红颜草莓礼盒</p>
+        <p class="goods-price">¥56</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_goods_3.jpg" alt="鲈鱼">
+      <div class="goods-info">
+        <p class="goods-name">鲜活鲈鱼</p>
+        <p class="goods-price">¥58</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_goods_4.jpg" alt="海参">
+      <div class="goods-info">
+        <p class="goods-name">即食海参</p>
+        <p class="goods-price">¥357</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_goods_5.jpg" alt="火龙果">
+      <div class="goods-info">
+        <p class="goods-name">红心火龙果</p>
+        <p class="goods-price">¥29</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_goods_6.jpg" alt="橙子">
+      <div class="goods-info">
+        <p class="goods-name">赣南脐橙</p>
+        <p class="goods-price">¥39</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_goods_7.jpg" alt="牛油果">
+      <div class="goods-info">
+        <p class="goods-name">进口牛油果</p>
+        <p class="goods-price">¥49</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_goods_8.jpg" alt="山竹">
+      <div class="goods-info">
+        <p class="goods-name">泰国山竹</p>
+        <p class="goods-price">¥89</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 服饰鞋包区 -->
+  <div class="section-title" id="clothes">潮流服饰专区</div>
+  <div class="goods-grid">
+    <div class="goods-card">
+      <img src="images/clothes1.png" alt="鞋子">
+      <div class="goods-info">
+        <p class="goods-name">休闲小白鞋</p>
+        <p class="goods-price">¥199</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/clothes2.png" alt="连衣裙">
+      <div class="goods-info">
+        <p class="goods-name">气质连衣裙</p>
+        <p class="goods-price">¥259</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/clothes3.png" alt="毛衣">
+      <div class="goods-info">
+        <p class="goods-name">温柔风毛衣</p>
+        <p class="goods-price">¥159</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/clothes4.png" alt="袜子">
+      <div class="goods-info">
+        <p class="goods-name">彩色棉袜套装</p>
+        <p class="goods-price">¥39</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/clothes5.png" alt="黑裙">
+      <div class="goods-info">
+        <p class="goods-name">赫本风小黑裙</p>
+        <p class="goods-price">¥299</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/clothes6.png" alt="皮带">
+      <div class="goods-info">
+        <p class="goods-name">真皮皮带</p>
+        <p class="goods-price">¥99</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/clothes7.png" alt="板鞋">
+      <div class="goods-info">
+        <p class="goods-name">复古板鞋</p>
+        <p class="goods-price">¥229</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/clothes8.png" alt="裤子">
+      <div class="goods-info">
+        <p class="goods-name">直筒休闲裤</p>
+        <p class="goods-price">¥169</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/clothes_left.png" alt="模特">
+      <div class="goods-info">
+        <p class="goods-name">时尚模特穿搭</p>
+        <p class="goods-price">¥0（展示款）</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/hot1.png" alt="穿搭">
+      <div class="goods-info">
+        <p class="goods-name">夏日清新穿搭</p>
+        <p class="goods-price">¥199</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/hot2.png" alt="休闲">
+      <div class="goods-info">
+        <p class="goods-name">休闲风穿搭</p>
+        <p class="goods-price">¥259</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/hot3.png" alt="印花">
+      <div class="goods-info">
+        <p class="goods-name">印花T恤</p>
+        <p class="goods-price">¥99</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/hot4.png" alt="闺蜜装">
+      <div class="goods-info">
+        <p class="goods-name">闺蜜装套装</p>
+        <p class="goods-price">¥299</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/hot5.png" alt="休闲装">
+      <div class="goods-info">
+        <p class="goods-name">休闲风连衣裙</p>
+        <p class="goods-price">¥189</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 居家好物区 -->
+  <div class="section-title" id="home">居家好物专区</div>
+  <div class="goods-grid">
+    <div class="goods-card">
+      <img src="images/home1.png" alt="床品">
+      <div class="goods-info">
+        <p class="goods-name">清新床品四件套</p>
+        <p class="goods-price">¥199</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/home2.png" alt="玩偶">
+      <div class="goods-info">
+        <p class="goods-name">治愈系玩偶</p>
+        <p class="goods-price">¥59</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/home3.png" alt="绿植">
+      <div class="goods-info">
+        <p class="goods-name">室内绿植盆栽</p>
+        <p class="goods-price">¥29</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/home4.png" alt="发饰">
+      <div class="goods-info">
+        <p class="goods-name">精致发饰套装</p>
+        <p class="goods-price">¥39</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/home5.png" alt="花艺">
+      <div class="goods-info">
+        <p class="goods-name">仿真花艺摆件</p>
+        <p class="goods-price">¥49</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/home6.png" alt="书桌">
+      <div class="goods-info">
+        <p class="goods-name">简约书桌</p>
+        <p class="goods-price">¥599</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/home7.png" alt="小盆栽">
+      <div class="goods-info">
+        <p class="goods-name">桌面小盆栽</p>
+        <p class="goods-price">¥19</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/home8.png" alt="靠垫">
+      <div class="goods-info">
+        <p class="goods-name">舒适靠垫</p>
+        <p class="goods-price">¥39</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/home_left.png" alt="居家">
+      <div class="goods-info">
+        <p class="goods-name">居家场景图</p>
+        <p class="goods-price">¥0（展示款）</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 餐厨用品区 -->
+  <div class="section-title" id="kitchen">餐厨用品专区</div>
+  <div class="goods-grid">
+    <div class="goods-card">
+      <img src="images/kitchen1.png" alt="锅具">
+      <div class="goods-info">
+        <p class="goods-name">陶瓷锅具套装</p>
+        <p class="goods-price">¥129</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/kitchen2.png" alt="碗具">
+      <div class="goods-info">
+        <p class="goods-name">创意碗具套装</p>
+        <p class="goods-price">¥69</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/kitchen3.png" alt="厨具">
+      <div class="goods-info">
+        <p class="goods-name">厨房工具套装</p>
+        <p class="goods-price">¥49</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/kitchen4.png" alt="水壶">
+      <div class="goods-info">
+        <p class="goods-name">保温水壶</p>
+        <p class="goods-price">¥89</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/kitchen5.png" alt="餐具">
+      <div class="goods-info">
+        <p class="goods-name">中式餐具套装</p>
+        <p class="goods-price">¥79</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/kitchen6.png" alt="煎锅">
+      <div class="goods-info">
+        <p class="goods-name">小白煎锅</p>
+        <p class="goods-price">¥99</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/kitchen7.png" alt="清洁布">
+      <div class="goods-info">
+        <p class="goods-name">清洁布套装</p>
+        <p class="goods-price">¥19</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/kitchen8.png" alt="杯子">
+      <div class="goods-info">
+        <p class="goods-name">马克杯套装</p>
+        <p class="goods-price">¥39</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/kitchen_left.png" alt="餐厨">
+      <div class="goods-info">
+        <p class="goods-name">餐厨场景图</p>
+        <p class="goods-price">¥0（展示款）</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 美食零食区 -->
+  <div class="section-title" id="food">美食零食专区</div>
+  <div class="goods-grid">
+    <div class="goods-card">
+      <img src="images/fresh1.png" alt="手抓饼">
+      <div class="goods-info">
+        <p class="goods-name">千层手抓饼</p>
+        <p class="goods-price">¥89.99</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh2.png" alt="红糖馒头">
+      <div class="goods-info">
+        <p class="goods-name">红糖馒头</p>
+        <p class="goods-price">¥9.99</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh3.png" alt="蛋糕">
+      <div class="goods-info">
+        <p class="goods-name">奶油蛋糕</p>
+        <p class="goods-price">¥58.8</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh4.png" alt="面包">
+      <div class="goods-info">
+        <p class="goods-name">奶酥面包</p>
+        <p class="goods-price">¥69</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh5.png" alt="甜点">
+      <div class="goods-info">
+        <p class="goods-name">马卡龙甜点</p>
+        <p class="goods-price">¥39</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh6.png" alt="蜂蜜">
+      <div class="goods-info">
+        <p class="goods-name">进口蜂蜜</p>
+        <p class="goods-price">¥79</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh7.png" alt="巧克力">
+      <div class="goods-info">
+        <p class="goods-name">黑巧克力礼盒</p>
+        <p class="goods-price">¥129</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh8.png" alt="慕斯">
+      <div class="goods-info">
+        <p class="goods-name">抹茶慕斯蛋糕</p>
+        <p class="goods-price">¥59</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/banner_1.png" alt="中秋活动">
+      <div class="goods-info">
+        <p class="goods-name">中秋活动</p>
+        <p class="goods-price">¥0（活动款）</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_goods_cover.png" alt="封面">
+      <div class="goods-info">
+        <p class="goods-name">生鲜封面图</p>
+        <p class="goods-price">¥0（展示款）</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/fresh_left.png" alt="左侧图">
+      <div class="goods-info">
+        <p class="goods-name">左侧分类图</p>
+        <p class="goods-price">¥0（展示款）</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/MS1.JPEG" alt="美食1">
+      <div class="goods-info">
+        <p class="goods-name">美食分享1</p>
+        <p class="goods-price">¥0（展示款）</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/MS2.JPEG" alt="美食2">
+      <div class="goods-info">
+        <p class="goods-name">美食分享2</p>
+        <p class="goods-price">¥0（展示款）</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/MS3.JPEG" alt="美食3">
+      <div class="goods-info">
+        <p class="goods-name">美食分享3</p>
+        <p class="goods-price">¥0（展示款）</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 新品与推荐区 -->
+  <div class="section-title">新品与精选好物</div>
+  <div class="goods-grid">
+    <div class="goods-card">
+      <img src="images/new_goods_1.jpg" alt="吸尘器">
+      <div class="goods-info">
+        <p class="goods-name">无线吸尘器</p>
+        <p class="goods-price">¥499</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/new_goods_2.jpg" alt="冰箱">
+      <div class="goods-info">
+        <p class="goods-name">嵌入式冰箱</p>
+        <p class="goods-price">¥2999</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/new_goods_3.jpg" alt="焖饭">
+      <div class="goods-info">
+        <p class="goods-name">懒人焖饭套餐</p>
+        <p class="goods-price">¥39</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/new_goods_4.jpg" alt="手表">
+      <div class="goods-info">
+        <p class="goods-name">石英手表</p>
+        <p class="goods-price">¥299</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/goods1.png" alt="KN95口罩">
+      <div class="goods-info">
+        <p class="goods-name">KN95口罩</p>
+        <p class="goods-price">¥79</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/goods2.png" alt="普洱茶盒">
+      <div class="goods-info">
+        <p class="goods-name">普洱茶盒</p>
+        <p class="goods-price">¥566</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/goods3.png" alt="记事本">
+      <div class="goods-info">
+        <p class="goods-name">笔记本套装</p>
+        <p class="goods-price">¥58</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/goods4.png" alt="布艺沙发">
+      <div class="goods-info">
+        <p class="goods-name">布艺沙发</p>
+        <p class="goods-price">¥3579</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/recommend1.png" alt="图书">
+      <div class="goods-info">
+        <p class="goods-name">畅销图书</p>
+        <p class="goods-price">¥39</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/recommend2.png" alt="数码">
+      <div class="goods-info">
+        <p class="goods-name">数码配件</p>
+        <p class="goods-price">¥199</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/recommend3.png" alt="食用油">
+      <div class="goods-info">
+        <p class="goods-name">压榨食用油</p>
+        <p class="goods-price">¥79</p>
+      </div>
+    </div>
+    <div class="goods-card">
+      <img src="images/recommend4.png" alt="鲜花">
+      <div class="goods-info">
+        <p class="goods-name">鲜花花束</p>
+        <p class="goods-price">¥99</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 活动专题区 -->
+  <div class="section-title">活动专题</div>
+  <div class="topic-area">
+    <div class="topic-card">
+      <img src="images/topic1.png" alt="家常菜">
+    </div>
+    <div class="topic-card">
+      <img src="images/topic2.png" alt="蛋挞">
+    </div>
+    <div class="topic-card">
+      <img src="images/topic3.png" alt="甜点">
+    </div>
+  </div>
+
+  <!-- 二维码服务区 -->
+  <div class="section-title">关注我们</div>
+  <div class="service-area">
+    <div class="qr-item">
+      <img src="images/app.png" alt="APP下载">
+      <p>APP下载</p>
+    </div>
+    <div class="qr-item">
+      <img src="images/qrcode.png" alt="公众号">
+      <p>公众号</p>
+    </div>
+    <div class="qr-item">
+      <img src="images/wechat.png" alt="客服微信">
+      <p>客服微信</p>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>小兔官网 © 2026</p>
+    <p>学号：24215220214 姓名：周凯健 —— Web编程技术实验1</p>
+    <p>客服热线：400-0000-999</p>
+    <p><img src="images/精灵图.PNG" alt="精灵图" style="width: 80px; margin-top:10px;"></p>
+  </footer>
+</body>
+</html>
